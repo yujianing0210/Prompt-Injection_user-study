@@ -10,15 +10,17 @@ import type { HighlightRange, StudySession, TrialResponse } from "../types/study
 type StudyPageProps = {
   session: StudySession;
   onTrialSubmit: (response: TrialResponse) => void;
+  previewMode: boolean;
 };
 
 type TrialViewProps = {
   session: StudySession;
   trialIndex: number;
   onSubmit: (response: TrialResponse) => void;
+  previewMode: boolean;
 };
 
-function TrialView({ session, trialIndex, onSubmit }: TrialViewProps) {
+function TrialView({ session, trialIndex, onSubmit, previewMode }: TrialViewProps) {
   const stimulusId = session.randomizedStimulusIds[trialIndex];
   const stimulus = STIMULI.find((s) => s.id === stimulusId);
 
@@ -66,8 +68,10 @@ function TrialView({ session, trialIndex, onSubmit }: TrialViewProps) {
     return null;
   }
 
-  const highlightingActive = injectionPresentAnswer === "yes" && !highlightConfirmed;
+  const highlightingActive =
+    !previewMode && injectionPresentAnswer === "yes" && !highlightConfirmed;
   const phase3Visible =
+    previewMode ||
     injectionPresentAnswer === "no" ||
     (injectionPresentAnswer === "yes" && highlightConfirmed);
 
@@ -111,17 +115,18 @@ function TrialView({ session, trialIndex, onSubmit }: TrialViewProps) {
   }
 
   const canSubmit =
-    phase3Visible &&
-    injectionPresentAnswer !== null &&
-    (injectionPresentAnswer === "no" || severity !== null) &&
-    safety !== null &&
-    authorship !== null &&
-    authorshipConfidence !== null &&
-    willingness !== null &&
-    (!stimulus.externalLabel.visible || labelTrust !== null);
+    previewMode ||
+    (phase3Visible &&
+      injectionPresentAnswer !== null &&
+      (injectionPresentAnswer === "no" || severity !== null) &&
+      safety !== null &&
+      authorship !== null &&
+      authorshipConfidence !== null &&
+      willingness !== null &&
+      (!stimulus.externalLabel.visible || labelTrust !== null));
 
   function handleNext() {
-    if (!canSubmit || !injectionPresentAnswer) {
+    if (!canSubmit) {
       return;
     }
 
@@ -138,10 +143,10 @@ function TrialView({ session, trialIndex, onSubmit }: TrialViewProps) {
       injectionAnswerChangeCount: changeCount,
       participantHighlights: highlights,
       injectionSeverity: injectionPresentAnswer === "yes" ? severity : null,
-      perceivedSafety: safety as number,
-      perceivedAuthorship: authorship as "human" | "ai",
-      authorshipConfidence: authorshipConfidence as number,
-      willingnessToUse: willingness as number,
+      perceivedSafety: safety,
+      perceivedAuthorship: authorship,
+      authorshipConfidence: authorshipConfidence,
+      willingnessToUse: willingness,
       externalLabelTrust: stimulus.externalLabel.visible ? labelTrust : null,
       textDisplayedAt,
       injectionDecisionAt: decisionAt,
@@ -291,7 +296,7 @@ function TrialView({ session, trialIndex, onSubmit }: TrialViewProps) {
   );
 }
 
-export function StudyPage({ session, onTrialSubmit }: StudyPageProps) {
+export function StudyPage({ session, onTrialSubmit, previewMode }: StudyPageProps) {
   return (
     <div className="page study-page">
       <ProgressBar
@@ -302,6 +307,7 @@ export function StudyPage({ session, onTrialSubmit }: StudyPageProps) {
         key={session.currentTrialIndex}
         session={session}
         trialIndex={session.currentTrialIndex}
+        previewMode={previewMode}
         onSubmit={onTrialSubmit}
       />
     </div>

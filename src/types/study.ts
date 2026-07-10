@@ -38,15 +38,15 @@ export type TrialResponse = {
   stimulusId: string;
   stimulusOrder: number;
 
-  injectionPresentAnswer: "yes" | "no";
+  injectionPresentAnswer: "yes" | "no" | null;
   injectionAnswerChangeCount: number;
   participantHighlights: HighlightRange[];
 
   injectionSeverity: number | null;
-  perceivedSafety: number;
-  perceivedAuthorship: "human" | "ai";
-  authorshipConfidence: number;
-  willingnessToUse: number;
+  perceivedSafety: number | null;
+  perceivedAuthorship: "human" | "ai" | null;
+  authorshipConfidence: number | null;
+  willingnessToUse: number | null;
   externalLabelTrust: number | null;
 
   textDisplayedAt: string;
@@ -71,4 +71,92 @@ export type StudySession = {
   randomizedStimulusIds: string[];
   currentTrialIndex: number;
   responses: TrialResponse[];
+};
+
+// ---------------------------------------------------------------------------
+// Version 2 types
+// ---------------------------------------------------------------------------
+
+export type V2Stimulus = {
+  id: string;
+  category: string;
+  scenario: string;
+  authorshipStyle: "human_written_style" | "ai_written_style";
+  injectionSource: "direct" | "indirect";
+  injectionStrategy: string;
+  languageStyle: string;
+  attackObjective: string;
+  targetTask: string;
+  text: string;
+
+  // Researcher-only fields; never display in participant UI.
+  groundTruthInjection: string;
+  groundTruthSpan: HighlightRange;
+  expectedInjectedOutput: string;
+  containsInjection: boolean;
+  language: string;
+};
+
+export type V2AiAuthorshipTag = {
+  visible: boolean;
+  label: "likely_ai" | "likely_human" | "uncertain";
+  aiProbability: number | null;
+  isConsistentWithAuthorshipStyle: boolean | null;
+};
+
+export type V2TrialResponse = {
+  participantId: string;
+  sessionId: string;
+  version: "v2";
+
+  trialIndex: number;
+  stimulusId: string;
+  stimulusOrder: number;
+
+  // Stimulus metadata
+  category: string;
+  scenario: string;
+  authorshipStyle: "human_written_style" | "ai_written_style";
+  injectionSource: "direct" | "indirect";
+  injectionStrategy: string;
+  languageStyle: string;
+  attackObjective: string;
+  targetTask: string;
+
+  // AI tag condition
+  aiTag: V2AiAuthorshipTag;
+  aiTagTrust: number | null;
+
+  // User ratings
+  appropriatenessRating: number | null;
+  willingnessToUse: number | null;
+  perceivedSafety: number | null;
+  perceivedTrustworthiness: number | null;
+  perceivedAuthorship: "human" | "ai" | "uncertain" | null;
+  authorshipConfidence: number | null;
+
+  // Timing
+  textDisplayedAt: string;
+  firstQuestionAnsweredAt: string | null;
+  ratingSubmittedAt: string;
+  openEndedPromptDisplayedAt: string;
+  openEndedPromptContinuedAt: string;
+
+  ratingDurationMs: number;
+  openEndedPromptDurationMs: number;
+  totalTrialDurationMs: number;
+};
+
+export type V2StudySession = {
+  participantId: string;
+  sessionId: string;
+  version: "v2";
+  studyStartedAt: string;
+  studyCompletedAt: string | null;
+  randomizedStimulusIds: string[];
+  taggedStimulusIds: string[];
+  aiTagsByStimulusId: Record<string, V2AiAuthorshipTag>;
+  currentTrialIndex: number;
+  currentPhase: "rating" | "reflection" | "completed";
+  responses: V2TrialResponse[];
 };

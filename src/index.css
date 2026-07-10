@@ -36,6 +36,52 @@ body {
   flex-direction: column;
 }
 
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.app-shell__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Version tabs */
+
+.version-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  flex: 0 0 auto;
+}
+
+.version-tabs__tab {
+  background: none;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.version-tabs__tab:hover {
+  color: var(--text);
+}
+
+.version-tabs__tab--active {
+  color: var(--accent);
+  border-color: var(--border);
+  background: var(--bg-page);
+}
+
 h1,
 h2 {
   color: var(--text);
@@ -180,6 +226,11 @@ a:focus-visible {
 
 .welcome-page__form .primary-button {
   margin-top: 8px;
+}
+
+.welcome-page__preview-button {
+  align-self: center;
+  margin-top: 4px;
 }
 
 .field-error {
@@ -448,4 +499,83 @@ a:focus-visible {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 20px;
+}
+
+/* Version 2 study layout */
+
+.v2-study-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 24px 16px 64px;
+}
+
+.v2-progress-section,
+.v2-text-section,
+.v2-question-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.v2-progress-section {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-page);
+  padding-bottom: 12px;
+}
+
+.v2-progress-bar {
+  position: static;
+  background: transparent;
+}
+
+/* AI tag badge */
+
+.ai-tag-badge {
+  width: 100%;
+  background: var(--notice-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.ai-tag-badge__title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+
+.ai-tag-badge__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ai-tag-badge__disclaimer {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Reflection (Phase B) */
+
+.v2-reflection-card__hint {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.v2-reflection-card__list {
+  margin: 8px 0 20px;
+  padding-left: 20px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

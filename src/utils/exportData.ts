@@ -1,5 +1,5 @@
 import { STIMULI } from "../data/stimuli";
-import type { StudySession, TrialResponse } from "../types/study";
+import type { StudySession, TrialResponse, V2StudySession, V2TrialResponse } from "../types/study";
 
 const CSV_COLUMNS = [
   "participantId",
@@ -26,12 +26,18 @@ const CSV_COLUMNS = [
   "totalTrialDurationMs",
 ] as const;
 
+const NA = "NA";
+
 function csvEscape(value: unknown): string {
-  const str = value === null || value === undefined ? "" : String(value);
+  const str = value === null || value === undefined ? NA : String(value);
   if (/[",\n]/.test(str)) {
     return `"${str.replace(/"/g, '""')}"`;
   }
   return str;
+}
+
+function naJsonReplacer(_key: string, value: unknown): unknown {
+  return value === null ? NA : value;
 }
 
 function trialToCsvRow(trial: TrialResponse): string {
@@ -91,7 +97,7 @@ function filenameFor(session: StudySession, extension: string): string {
 
 export function downloadSessionJson(session: StudySession): void {
   downloadBlob(
-    JSON.stringify(session, null, 2),
+    JSON.stringify(session, naJsonReplacer, 2),
     filenameFor(session, "json"),
     "application/json",
   );
@@ -99,4 +105,106 @@ export function downloadSessionJson(session: StudySession): void {
 
 export function downloadSessionCsv(session: StudySession): void {
   downloadBlob(sessionToCsv(session), filenameFor(session, "csv"), "text/csv");
+}
+
+// ---------------------------------------------------------------------------
+// Version 2
+// ---------------------------------------------------------------------------
+
+const CSV_COLUMNS_V2 = [
+  "participantId",
+  "sessionId",
+  "version",
+  "trialIndex",
+  "stimulusId",
+  "category",
+  "scenario",
+  "authorshipStyle",
+  "injectionSource",
+  "injectionStrategy",
+  "languageStyle",
+  "attackObjective",
+  "targetTask",
+  "aiTagVisible",
+  "aiTagLabel",
+  "aiTagAiProbability",
+  "aiTagConsistentWithAuthorshipStyle",
+  "appropriatenessRating",
+  "willingnessToUse",
+  "perceivedSafety",
+  "perceivedTrustworthiness",
+  "perceivedAuthorship",
+  "authorshipConfidence",
+  "aiTagTrust",
+  "textDisplayedAt",
+  "ratingSubmittedAt",
+  "openEndedPromptDisplayedAt",
+  "openEndedPromptContinuedAt",
+  "ratingDurationMs",
+  "openEndedPromptDurationMs",
+  "totalTrialDurationMs",
+] as const;
+
+function trialToCsvRowV2(trial: V2TrialResponse): string {
+  const values: Record<(typeof CSV_COLUMNS_V2)[number], unknown> = {
+    participantId: trial.participantId,
+    sessionId: trial.sessionId,
+    version: trial.version,
+    trialIndex: trial.trialIndex,
+    stimulusId: trial.stimulusId,
+    category: trial.category,
+    scenario: trial.scenario,
+    authorshipStyle: trial.authorshipStyle,
+    injectionSource: trial.injectionSource,
+    injectionStrategy: trial.injectionStrategy,
+    languageStyle: trial.languageStyle,
+    attackObjective: trial.attackObjective,
+    targetTask: trial.targetTask,
+    aiTagVisible: trial.aiTag.visible,
+    aiTagLabel: trial.aiTag.visible ? trial.aiTag.label : null,
+    aiTagAiProbability: trial.aiTag.aiProbability,
+    aiTagConsistentWithAuthorshipStyle: trial.aiTag.isConsistentWithAuthorshipStyle,
+    appropriatenessRating: trial.appropriatenessRating,
+    willingnessToUse: trial.willingnessToUse,
+    perceivedSafety: trial.perceivedSafety,
+    perceivedTrustworthiness: trial.perceivedTrustworthiness,
+    perceivedAuthorship: trial.perceivedAuthorship,
+    authorshipConfidence: trial.authorshipConfidence,
+    aiTagTrust: trial.aiTagTrust,
+    textDisplayedAt: trial.textDisplayedAt,
+    ratingSubmittedAt: trial.ratingSubmittedAt,
+    openEndedPromptDisplayedAt: trial.openEndedPromptDisplayedAt,
+    openEndedPromptContinuedAt: trial.openEndedPromptContinuedAt,
+    ratingDurationMs: trial.ratingDurationMs,
+    openEndedPromptDurationMs: trial.openEndedPromptDurationMs,
+    totalTrialDurationMs: trial.totalTrialDurationMs,
+  };
+
+  return CSV_COLUMNS_V2.map((column) => csvEscape(values[column])).join(",");
+}
+
+export function sessionToCsvV2(session: V2StudySession): string {
+  const header = CSV_COLUMNS_V2.join(",");
+  const rows = session.responses.map(trialToCsvRowV2);
+  return [header, ...rows].join("\n");
+}
+
+function filenameForV2(session: V2StudySession, extension: string): string {
+  return `prompt-injection-study-v2_${session.participantId}_${session.sessionId}.${extension}`;
+}
+
+export function downloadSessionJsonV2(session: V2StudySession): void {
+  downloadBlob(
+    JSON.stringify(session, naJsonReplacer, 2),
+    filenameForV2(session, "json"),
+    "application/json",
+  );
+}
+
+export function downloadSessionCsvV2(session: V2StudySession): void {
+  downloadBlob(
+    sessionToCsvV2(session),
+    filenameForV2(session, "csv"),
+    "text/csv",
+  );
 }

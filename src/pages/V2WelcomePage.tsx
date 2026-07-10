@@ -1,18 +1,18 @@
 import { useState, type FormEvent } from "react";
-import { hasUnfinishedSession } from "../utils/storage";
+import { hasUnfinishedSessionV2 } from "../utils/storage";
 
-type WelcomePageProps = {
+type V2WelcomePageProps = {
   onStart: (participantId: string) => void;
   onPreview: (participantId: string) => void;
   onResume: () => void;
 };
 
-export function WelcomePage({ onStart, onPreview, onResume }: WelcomePageProps) {
+export function V2WelcomePage({ onStart, onPreview, onResume }: V2WelcomePageProps) {
   const [participantId, setParticipantId] = useState("");
   const [error, setError] = useState(false);
   const [resumeDismissed, setResumeDismissed] = useState(false);
 
-  const showResumeBanner = !resumeDismissed && hasUnfinishedSession();
+  const showResumeBanner = !resumeDismissed && hasUnfinishedSessionV2();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,9 +41,15 @@ export function WelcomePage({ onStart, onPreview, onResume }: WelcomePageProps) 
   return (
     <div className="page welcome-page">
       <div className="card">
-        <h1>中文Prompt Injection感知研究</h1>
+        <h1>Version 2: Text Evaluation Study</h1>
         <p className="welcome-page__description">
-          在本研究中，你将阅读20段文本，并判断其中是否存在可能影响AI行为的额外指令。请根据你的真实判断作答。研究过程中没有唯一的正确答案，请不要使用外部搜索工具。
+          在本研究中，你将阅读一系列面向AI应用的文本或prompt，并评价它们是否合理、安全、可信，以及你是否愿意使用或采纳它们。
+        </p>
+        <p className="welcome-page__description">
+          请根据你的第一反应作答。部分页面可能会显示外部AI检测标签，该标签仅供参考。
+        </p>
+        <p className="welcome-page__description">
+          每条文本之后，你将看到一个简短的口头解释提示，请根据主持人的要求，说明你做出判断的原因。
         </p>
         <p className="welcome-page__estimate">预计用时：30 分钟</p>
 
@@ -66,9 +72,9 @@ export function WelcomePage({ onStart, onPreview, onResume }: WelcomePageProps) 
         )}
 
         <form onSubmit={handleSubmit} className="welcome-page__form">
-          <label htmlFor="participantId">Participant ID</label>
+          <label htmlFor="participantIdV2">Participant ID</label>
           <input
-            id="participantId"
+            id="participantIdV2"
             type="text"
             value={participantId}
             onChange={(event) => {
@@ -81,7 +87,7 @@ export function WelcomePage({ onStart, onPreview, onResume }: WelcomePageProps) 
             <p className="field-error">请输入Participant ID后再开始。</p>
           )}
           <button type="submit" className="primary-button">
-            Start Study
+            Start Version 2 Study
           </button>
           <button
             type="button"

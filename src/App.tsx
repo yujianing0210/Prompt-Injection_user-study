@@ -1,85 +1,44 @@
 import { useState } from "react";
-import { WelcomePage } from "./pages/WelcomePage";
-import { StudyPage } from "./pages/StudyPage";
-import { CompletionPage } from "./pages/CompletionPage";
-import { STIMULI } from "./data/stimuli";
-import { shuffleArray } from "./utils/randomize";
-import { nowIso } from "./utils/timing";
-import { clearSession, loadSession, saveSession } from "./utils/storage";
-import type { StudySession, TrialResponse } from "./types/study";
+import { AppV1 } from "./AppV1";
+import { AppV2 } from "./AppV2";
 
-type AppScreen = "welcome" | "study" | "completion";
-
-function createSession(participantId: string): StudySession {
-  return {
-    participantId,
-    sessionId: crypto.randomUUID(),
-    studyStartedAt: nowIso(),
-    studyCompletedAt: null,
-    randomizedStimulusIds: shuffleArray(STIMULI.map((s) => s.id)),
-    currentTrialIndex: 0,
-    responses: [],
-  };
-}
+type StudyVersion = "v1" | "v2";
 
 function App() {
-  const [screen, setScreen] = useState<AppScreen>("welcome");
-  const [session, setSession] = useState<StudySession | null>(null);
+  const [activeVersion, setActiveVersion] = useState<StudyVersion>("v1");
 
-  function handleStart(participantId: string) {
-    const newSession = createSession(participantId);
-    saveSession(newSession);
-    setSession(newSession);
-    setScreen("study");
-  }
+  return (
+    <div className="app-shell">
+      <nav className="version-tabs" aria-label="Study version">
+        <button
+          type="button"
+          className={
+            activeVersion === "v1"
+              ? "version-tabs__tab version-tabs__tab--active"
+              : "version-tabs__tab"
+          }
+          onClick={() => setActiveVersion("v1")}
+        >
+          Version 1
+        </button>
+        <button
+          type="button"
+          className={
+            activeVersion === "v2"
+              ? "version-tabs__tab version-tabs__tab--active"
+              : "version-tabs__tab"
+          }
+          onClick={() => setActiveVersion("v2")}
+        >
+          Version 2
+        </button>
+      </nav>
 
-  function handleResume() {
-    const existing = loadSession();
-    if (existing) {
-      setSession(existing);
-      setScreen("study");
-    }
-  }
-
-  function handleTrialSubmit(response: TrialResponse) {
-    if (!session) {
-      return;
-    }
-
-    const updatedResponses = [...session.responses, response];
-    const isLastTrial =
-      session.currentTrialIndex >= session.randomizedStimulusIds.length - 1;
-
-    const updatedSession: StudySession = {
-      ...session,
-      responses: updatedResponses,
-      currentTrialIndex: session.currentTrialIndex + 1,
-      studyCompletedAt: isLastTrial ? nowIso() : null,
-    };
-
-    saveSession(updatedSession);
-    setSession(updatedSession);
-
-    if (isLastTrial) {
-      setScreen("completion");
-    }
-  }
-
-  function handleRestart() {
-    clearSession();
-    setSession(null);
-    setScreen("welcome");
-  }
-
-  if (screen === "study" && session) {
-    return <StudyPage session={session} onTrialSubmit={handleTrialSubmit} />;
-  }
-
-  if (screen === "completion" && session) {
-    return <CompletionPage session={session} onRestart={handleRestart} />;
-  }
-
-  return <WelcomePage onStart={handleStart} onResume={handleResume} />;
+      <div className="app-shell__content">
+        {activeVersion === "v1" ? <AppV1 /> : <AppV2 />}
+      </div>
+    </div>
+  );
 }
 
 export default App;
