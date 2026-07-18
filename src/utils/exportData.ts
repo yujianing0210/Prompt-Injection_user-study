@@ -1,5 +1,5 @@
-import { STIMULI } from "../data/stimuli";
-import type { StudySession, TrialResponse, V2StudySession, V2TrialResponse } from "../types/study";
+import { STIMULI } from "../data/stimuli.ts";
+import type { FormalStudySession, FormalTrialResponse, StudySession, TrialResponse, V2StudySession, V2TrialResponse } from "../types/study";
 
 const CSV_COLUMNS = [
   "participantId",
@@ -207,4 +207,75 @@ export function downloadSessionCsvV2(session: V2StudySession): void {
     filenameForV2(session, "csv"),
     "text/csv",
   );
+}
+
+// ---------------------------------------------------------------------------
+// Formal study
+// ---------------------------------------------------------------------------
+
+const FORMAL_CSV_COLUMNS = [
+  "participantId", "group", "sessionId", "trialIndex", "stimulusId",
+  "scenarioTitle", "taskType", "scenario", "specificContext",
+  "actualAuthorship", "condition", "primaryRisk", "secondaryRisk", "riskTypeCN",
+  "hasAiTag", "aiTagLabel", "aiProbability", "appropriateness",
+  "willingnessToUse", "perceivedSafety", "perceivedReliability",
+  "perceivedAuthorship", "authorshipConfidence", "aiTagTrust",
+  "attachmentClicked", "attachmentClickCount", "trialStartedAt",
+  "promptRevealedAt", "trialSubmittedAt", "timeBeforePromptRevealMs",
+  "timeAfterPromptRevealMs", "totalTrialDurationMs",
+] as const;
+
+function formalTrialToCsvRow(trial: FormalTrialResponse): string {
+  const values: Record<(typeof FORMAL_CSV_COLUMNS)[number], unknown> = {
+    participantId: trial.participantId,
+    group: trial.group,
+    sessionId: trial.sessionId,
+    trialIndex: trial.trialIndex,
+    stimulusId: trial.stimulusId,
+    scenarioTitle: trial.scenarioTitle,
+    taskType: trial.taskType,
+    scenario: trial.scenario,
+    specificContext: trial.specificContext,
+    actualAuthorship: trial.actualAuthorship,
+    condition: trial.condition,
+    primaryRisk: trial.primaryRisk,
+    secondaryRisk: trial.secondaryRisk,
+    riskTypeCN: trial.riskTypeCN,
+    hasAiTag: trial.hasAiTag,
+    aiTagLabel: trial.aiTagLabel,
+    aiProbability: trial.aiProbability,
+    appropriateness: trial.appropriateness,
+    willingnessToUse: trial.willingnessToUse,
+    perceivedSafety: trial.perceivedSafety,
+    perceivedReliability: trial.perceivedReliability,
+    perceivedAuthorship: trial.perceivedAuthorship,
+    authorshipConfidence: trial.authorshipConfidence,
+    aiTagTrust: trial.aiTagTrust,
+    attachmentClicked: trial.attachmentClicks.length > 0,
+    attachmentClickCount: trial.attachmentClicks.length,
+    trialStartedAt: trial.trialStartedAt,
+    promptRevealedAt: trial.promptRevealedAt,
+    trialSubmittedAt: trial.trialSubmittedAt,
+    timeBeforePromptRevealMs: trial.timeBeforePromptRevealMs,
+    timeAfterPromptRevealMs: trial.timeAfterPromptRevealMs,
+    totalTrialDurationMs: trial.totalTrialDurationMs,
+  };
+  return FORMAL_CSV_COLUMNS.map((column) => csvEscape(values[column])).join(",");
+}
+
+export function formalSessionToCsv(session: FormalStudySession): string {
+  return [FORMAL_CSV_COLUMNS.join(","), ...session.responses.map(formalTrialToCsvRow)].join("\n");
+}
+
+function formalFilename(session: FormalStudySession, extension: string): string {
+  const safeParticipantId = session.participantId.replace(/[^a-zA-Z0-9_-]/g, "_");
+  return `llm-prompt-review_${safeParticipantId}_${session.sessionId}.${extension}`;
+}
+
+export function downloadFormalSessionJson(session: FormalStudySession): void {
+  downloadBlob(JSON.stringify(session, null, 2), formalFilename(session, "json"), "application/json");
+}
+
+export function downloadFormalSessionCsv(session: FormalStudySession): void {
+  downloadBlob(formalSessionToCsv(session), formalFilename(session, "csv"), "text/csv;charset=utf-8");
 }

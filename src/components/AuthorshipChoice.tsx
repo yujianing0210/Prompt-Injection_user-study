@@ -5,6 +5,8 @@ type AuthorshipChoiceProps = {
   legend: string;
   value: AuthorshipValue | null;
   onChange: (value: AuthorshipValue) => void;
+  options?: ReadonlyArray<{ value: AuthorshipValue; label: string }>;
+  disabled?: boolean;
 };
 
 const OPTIONS: { value: AuthorshipValue; label: string }[] = [
@@ -18,18 +20,21 @@ export function AuthorshipChoice({
   legend,
   value,
   onChange,
+  options = OPTIONS,
+  disabled = false,
 }: AuthorshipChoiceProps) {
   return (
     <fieldset className="question binary-question">
       <legend>{legend}</legend>
       <div className="binary-question__options">
-        {OPTIONS.map((option) => (
+        {options.map((option) => (
           <label key={option.value} className="binary-question__option">
             <input
               type="radio"
               name={name}
               value={option.value}
               checked={value === option.value}
+              disabled={disabled}
               onChange={() => onChange(option.value)}
             />
             <span>{option.label}</span>

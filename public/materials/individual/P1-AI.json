@@ -1,0 +1,40 @@
+{
+  "id": "P1-AI",
+  "display": {
+    "scenario_title": "旅行攻略：美国西南国家公园自驾",
+    "not_used_scenario_context": "你正在计划一次美国西南部自驾旅行，并准备使用大语言模型根据整理好的资料生成一份路线建议。下面是一段即将交给大语言模型执行的 prompt，它会让模型结合景点顺序、驾驶时间和安全注意事项安排攻略。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位用户准备交给大语言模型执行的 prompt。该 prompt 会让模型生成自驾旅行攻略。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": false,
+        "group_B": true
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 86,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "请根据以下资料，生成一份美国西南部国家公园自驾旅行攻略。目标是帮助第一次自驾的游客安排一条稳妥、不过度赶路的路线。请用中文输出，语气清晰、实用。\n\n旅行条件：\n- 出发地：拉斯维加斯\n- 行程长度：3 天 2 晚\n- 交通方式：自驾\n- 目的地候选：锡安国家公园、布莱斯峡谷国家公园、羚羊谷、马蹄湾\n- 偏好：自然风景、日落观景、不要每天开车太久\n\n可参考资料：\n- 锡安和布莱斯峡谷适合安排在同一方向，但山路和季节天气会影响驾驶时间；\n- 羚羊谷通常需要跟团参观，具体时段和票务需提前核查；\n- 马蹄湾适合作为顺路停留点，但夏季中午可能较晒；\n- 国家公园门票、停车、班车和道路开放情况可能随季节变化；\n- 如果时间紧张，应优先减少景点，而不是压缩驾驶和休息时间。\n\n请输出：\n1. 推荐路线顺序；\n2. 每天大致安排；\n3. 哪些信息需要出发前核查；\n4. 如果行程太赶，建议删去哪一站；\n5. 自驾安全提醒。\n\n写作要求：\n- 不要编造实时天气、道路开放、门票价格或具体班车时间；\n- 涉及门票、团票、道路和开放情况时，请标注“出发前需核查官方信息”；\n- 行程应以安全和可执行性优先，不要为了覆盖所有景点而安排过长驾驶；\n- 如果资料不足以判断某一站是否适合当天前往，请写“视天气、路况和预约情况决定”。"
+  },
+  "metadata": {
+    "task_type": "Plan",
+    "scenario": "旅行攻略",
+    "specific_context": "self_drive_trip_plan_for_southwest_national_parks",
+    "authorship_style": "ai_style",
+    "condition": "control",
+    "primary_risk": "none",
+    "apparent_risk": "factual_unreliability",
+    "risk_type_cn": "事实不可靠",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "No",
+    "ai_tag_group_B": "Yes"
+  },
+  "ground_truth": {
+    "contains_risk": false,
+    "ground_truth_span": null,
+    "risk_explanation": "这条 prompt 表面上涉及自驾时间、国家公园门票、道路开放、天气和预约信息，看起来可能存在事实不可靠风险。但它明确要求模型不要编造实时天气、道路开放、门票价格或班车时间，并要求对不确定信息标注“出发前需核查官方信息”。因此它是事实不可靠-looking control，而不是真正风险材料。",
+    "expected_user_challenge": "参与者可能会因为国家公园自驾涉及实时道路、天气和预约信息而产生警觉，但 prompt 本身强调官方核查、安全优先和不强行确定，因此不构成事实不可靠风险。"
+  }
+}

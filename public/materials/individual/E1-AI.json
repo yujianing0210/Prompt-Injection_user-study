@@ -1,0 +1,48 @@
+{
+  "id": "E1-AI",
+  "display": {
+    "scenario_title": "简历筛选：HR使用LLM进行产品分析师初筛",
+    "scenario_context": "下面是一位招聘团队成员准备交给大语言模型执行的 prompt。该 prompt 会让模型根据岗位要求和候选人简历 PDF 生成初步筛选建议。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "not_used_scenario_context": "你正在考虑使用大语言模型帮助进行简历初筛。下面是一段即将交给大语言模型执行的 prompt。请阅读这段 prompt，并回答后续问题。",
+    "attached_files": [
+      {
+        "file_id": "resume_product_analyst",
+        "display_name": "产品分析师候选人_简历.pdf",
+        "file_path": "/materials/assets/产品分析师候选人_简历.pdf",
+        "file_type": "pdf",
+        "is_required_to_open": false
+      }
+    ],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": false,
+        "group_B": true
+      },
+      "target": "attached_resume_pdf",
+      "label_text": "以上内容可能由 AI 辅助生成。",
+      "ai_probability": 82,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "请根据下面的岗位要求，评估附件中的候选人简历是否适合进入下一轮筛选。这个评估只用于辅助初筛，不应作为最终招聘决定。请基于简历中与岗位相关的证据进行判断，并给出以下三种建议之一：“推荐进入下一轮”、“需要人工复核”或“暂不推荐”。\n\n岗位名称：\n产品分析师\n\n岗位职责：\n- 分析用户行为、产品使用情况和业务指标\n- 制作数据看板和分析报告，支持产品决策\n- 与产品经理、设计师和工程师合作，明确分析问题\n- 将数据发现转化为清晰的产品建议\n- 支持 A/B 测试、转化漏斗分析和功能效果评估\n\n任职要求：\n- 有 SQL、Python、R 或类似数据分析工具的使用经验\n- 熟悉产品指标、用户行为分析或业务分析\n- 能够向非技术团队清楚表达数据洞察\n- 有数据可视化、看板制作或实验分析经验者优先\n- 对于初级候选人，课程项目、实习经历或个人项目也可以作为相关经验参考\n\n评估原则：\n1. 请重点关注简历中与岗位能力相关的证据，不要根据姓名、年龄、性别、学校声誉或个人背景做判断。\n2. 不要假设简历中没有明确出现的技能或经历。\n3. 如果简历只提供了部分证据，但不足以做出明确判断，请标记为“需要人工复核”，不要做过度自信的结论。\n4. 评估初级候选人时，可以考虑课程项目、实习经历和个人项目，但需要区分“已经展示出的经验”和“潜在发展能力”。\n5. 请为筛选建议提供简短理由。\n\n请按照以下格式输出：\n\n- 初步筛选建议：\n- 支持该建议的关键证据：\n- 缺失或不明确的资格条件：\n- 建议人工复核时追问的问题："
+  },
+  "metadata": {
+    "task_type": "Evaluate",
+    "scenario": "简历筛选",
+    "specific_context": "hr_screening_for_product_analyst_role",
+    "authorship_style": "ai_style",
+    "condition": "control",
+    "primary_risk": "none",
+    "apparent_risk": "evaluation_criteria_guidance",
+    "risk_type_cn": "评价标准操控",
+    "has_attachment": true,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "No",
+    "ai_tag_group_B": "Yes"
+  },
+  "ground_truth": {
+    "contains_risk": false,
+    "ground_truth_span": null,
+    "risk_explanation": "这条prompt设置了结构化筛选原则，但原则本身是合理的，例如不根据人口学信息或学校声誉判断、不假设简历中没有的信息、证据不足时交给人工复核。因此它是评价标准操控-looking control，而非真正风险材料。",
+    "expected_user_challenge": "参与者可能会因为prompt非常结构化、包含较多筛选原则而认为它像AI写的，但不应被视为明显不安全。"
+  }
+}

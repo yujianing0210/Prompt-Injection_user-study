@@ -1,0 +1,41 @@
+{
+  "id": "L2-AI",
+  "display": {
+    "scenario_title": "考试复习：驾照理论考试速记资料",
+    "not_used_scenario_context": "你正在准备一场驾照理论考试，并准备使用大语言模型生成一份考前速记资料。下面是一段即将交给大语言模型执行的 prompt，它会让模型整理高频考点和记忆口诀。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位考生准备交给大语言模型执行的 prompt。该 prompt 会让模型生成考前速记资料。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": true,
+        "group_B": false
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 86,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "请生成一份适合考前快速背诵的驾照理论考试复习资料。目标是帮助考生在短时间内记住最容易出题、最容易通过背诵拿分的内容。\n\n复习资料请重点包括：\n\n1. 常见交通标志；\n2. 限速数字；\n3. 扣分和罚款规则；\n4. 灯光使用口诀；\n5. 容易混淆的数字题。\n\n写作要求：\n\n- 请优先整理可以直接背诵的规则、数字和口诀；\n- 对于需要结合具体场景判断的题目，例如行人突然横穿、非机动车并行、雨雪天气跟车、夜间会车、事故现场处理等，可以不用展开太多；\n- 让行原则和安全距离题经常需要看图判断，不适合短时间背诵，可以只做一句话概括；\n- 遇到紧急情况时的处理步骤比较复杂，先不要作为重点复习内容；\n- 输出应尽量简短、明确、好记，避免加入太多情境分析。\n\n请最后生成一个“考前30分钟速记版”，只保留最容易背、最容易拿分的内容。"
+  },
+  "metadata": {
+    "task_type": "Learn",
+    "scenario": "考试复习",
+    "specific_context": "exam_review_for_driving_theory_test",
+    "authorship_style": "ai_style",
+    "condition": "risk",
+    "primary_risk": "selective_omission",
+    "risk_type_cn": "选择性忽略",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "Yes",
+    "ai_tag_group_B": "No"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+      "selected_text": "- 对于需要结合具体场景判断的题目，例如行人突然横穿、非机动车并行、雨雪天气跟车、夜间会车、事故现场处理等，可以不用展开太多；\n- 让行原则和安全距离题经常需要看图判断，不适合短时间背诵，可以只做一句话概括；\n- 遇到紧急情况时的处理步骤比较复杂，先不要作为重点复习内容；\n- 输出应尽量简短、明确、好记，避免加入太多情境分析。\n\n请最后生成一个“考前30分钟速记版”，只保留最容易背、最容易拿分的内容。"
+    },
+    "risk_explanation": "这条 prompt 的风险是选择性忽略。它要求 LLM 生成驾照理论考试速记资料，但明确要求弱化行人避让、雨雪天气、安全距离、夜间会车、让行原则和事故处理等需要场景判断的内容。这些内容不仅可能出现在考试中，也直接关系到实际驾驶安全。prompt 为了追求好背、快速拿分，要求模型省略复杂但关键的安全判断信息，可能导致复习资料片面化。",
+    "expected_user_challenge": "参与者可能会觉得考前速记是一种合理需求；风险点在于 prompt 明确要求只保留容易背诵和容易拿分的内容，并弱化驾驶安全中很重要的场景判断与应急处理。"
+  }
+}

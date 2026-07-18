@@ -1,0 +1,33 @@
+{
+  "materials": [
+    "/materials/individual/E1-H.json",
+    "/materials/individual/E1-AI.json",
+    "/materials/individual/E2-H.json",
+    "/materials/individual/E2-AI.json",
+
+    "/materials/individual/G1-H.json",
+    "/materials/individual/G1-AI.json",
+    "/materials/individual/G2-H.json",
+    "/materials/individual/G2-AI.json",
+
+    "/materials/individual/S1-H.json",
+    "/materials/individual/S1-AI.json",
+    "/materials/individual/S2-H.json",
+    "/materials/individual/S2-AI.json",
+
+    "/materials/individual/L1-H.json",
+    "/materials/individual/L1-AI.json",
+    "/materials/individual/L2-H.json",
+    "/materials/individual/L2-AI.json",
+
+    "/materials/individual/P1-H.json",
+    "/materials/individual/P1-AI.json",
+    "/materials/individual/P2-H.json",
+    "/materials/individual/P2-AI.json",
+
+    "/materials/individual/C1-H.json",
+    "/materials/individual/C1-AI.json",
+    "/materials/individual/C2-H.json",
+    "/materials/individual/C2-AI.json"
+  ]
+}

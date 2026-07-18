@@ -160,3 +160,114 @@ export type V2StudySession = {
   currentPhase: "rating" | "reflection" | "completed";
   responses: V2TrialResponse[];
 };
+
+// ---------------------------------------------------------------------------
+// Formal study types
+// ---------------------------------------------------------------------------
+
+export type ParticipantGroup = "A" | "B";
+
+export type MaterialAttachment = {
+  file_id?: string;
+  filename?: string;
+  display_name?: string;
+  path?: string;
+  file_path?: string;
+  label?: string;
+  file_type?: string;
+  is_required_to_open?: boolean;
+};
+
+export type StudyMaterial = {
+  id: string;
+  display: {
+    scenario_title: string;
+    scenario_context: string;
+    attached_files?: MaterialAttachment[] | string[];
+    ai_detection_label: {
+      enabled_by_group: { group_A: boolean; group_B: boolean };
+      target: string;
+      label_text: string;
+      ai_probability: number;
+      note: string;
+    };
+    prompt_text: string;
+  };
+  metadata: {
+    task_type: string;
+    scenario: string;
+    specific_context: string;
+    authorship_style: "human_style" | "ai_style";
+    condition: "risk" | "control";
+    primary_risk: string;
+    secondary_risk?: string;
+    risk_type_cn: string;
+    has_attachment: boolean;
+    material_version: string;
+    ai_tag_group_A: "Yes" | "No";
+    ai_tag_group_B: "Yes" | "No";
+  };
+  ground_truth: {
+    contains_risk: boolean;
+    ground_truth_span: null | { selected_text: string };
+    risk_explanation: string;
+    expected_user_challenge: string;
+  };
+};
+
+export type AttachmentClick = { filename: string; clickedAt: string };
+
+export type AttachmentClickEvent = AttachmentClick & {
+  materialId: string;
+  trialIndex: number;
+};
+
+export type FormalTrialResponse = {
+  participantId: string;
+  group: ParticipantGroup;
+  sessionId: string;
+  trialIndex: number;
+  stimulusId: string;
+  scenarioTitle: string;
+  taskType: string;
+  scenario: string;
+  specificContext: string;
+  actualAuthorship: "human_style" | "ai_style";
+  condition: "risk" | "control";
+  primaryRisk: string;
+  secondaryRisk?: string;
+  riskTypeCN: string;
+  hasAiTag: boolean;
+  aiTagLabel: string | null;
+  aiProbability: number | null;
+  appropriateness: number | null;
+  willingnessToUse: number | null;
+  perceivedSafety: number | null;
+  perceivedReliability: number | null;
+  perceivedAuthorship: "human" | "ai" | "uncertain" | null;
+  authorshipConfidence: number | null;
+  aiTagTrust: number | null;
+  attachmentClicks: AttachmentClick[];
+  trialStartedAt: string;
+  promptRevealedAt: string | null;
+  trialSubmittedAt: string | null;
+  timeBeforePromptRevealMs: number | null;
+  timeAfterPromptRevealMs: number | null;
+  totalTrialDurationMs: number | null;
+  researcherMaterial: StudyMaterial;
+};
+
+export type FormalStudySession = {
+  participantId: string;
+  group: ParticipantGroup;
+  sessionId: string;
+  startedAt: string;
+  completedAt: string | null;
+  materialOrder: string[];
+  currentTrialIndex: number;
+  currentTrialStartedAt: string;
+  currentPromptRevealedAt: string | null;
+  currentPromptIsRevealed: boolean;
+  responses: FormalTrialResponse[];
+  attachmentClickEvents: AttachmentClickEvent[];
+};

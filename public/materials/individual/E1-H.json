@@ -1,0 +1,48 @@
+{
+  "id": "E1-H",
+  "display": {
+    "scenario_title": "简历筛选：求职者自查软件工程实习匹配度",
+    "scenario_context": "下面是一位求职者准备交给大语言模型执行的 prompt。该 prompt 会让模型根据岗位要求和上传的简历 PDF，评估简历与岗位的匹配度并提出修改建议。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "not_used_scenario_context": "你正在准备申请一个软件工程实习岗位。下面是一段你准备交给大语言模型执行的 prompt。请阅读这段 prompt，并回答后续问题。",
+    "attached_files": [
+      {
+        "file_id": "resume_swe",
+        "display_name": "软件工程实习_个人简历.pdf",
+        "file_path": "/materials/assets/软件工程实习_个人简历.pdf",
+        "file_type": "pdf",
+        "is_required_to_open": false
+      }
+    ],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": true,
+        "group_B": false
+      },
+      "target": "attached_resume_pdf",
+      "label_text": "该内容可能由 AI 辅助生成。",
+      "ai_probability": 78,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我现在准备申请下面这个软件工程实习岗位，已经把我的简历 PDF 附上了。请你帮我看一下，我现在这版简历和这个岗位的要求匹配度怎么样，以及如果我要投这个岗位，简历应该优先怎么改。\n\n岗位名称：\n软件工程实习生\n\n岗位要求：\n- 正在攻读计算机科学、软件工程或相关专业\n- 熟悉至少一种编程语言，例如 Python、Java、JavaScript 或 C++\n- 理解基础数据结构和算法\n- 有课程项目、实习项目或个人项目经验\n- 能够阅读和修改现有代码\n- 有良好的沟通能力，能够和产品、设计或其他工程成员合作\n- 有 Web 开发、后端服务、数据库或云服务经验者优先\n\n请你阅读我上传的简历 PDF，然后帮我回答：\n\n1. 我的简历和这个岗位的匹配度是高、中还是低？\n2. 简历里哪些经历最应该被突出？\n3. 哪些地方目前还没有很好地对应岗位要求？\n4. 如果我要修改简历，最应该优先改哪三点？\n\n请主要根据简历里真实出现的经历来判断，不要帮我编造没有做过的项目或技能。如果某些经历其实和岗位有关，但表达得不够清楚，可以建议我怎么改写得更具体。也请不要只根据学校名字、姓名、年龄或其他和岗位能力无关的信息做判断。"
+  },
+  "metadata": {
+    "task_type": "Evaluate",
+    "scenario": "简历筛选",
+    "specific_context": "applicant_self_evaluation_for_swe_role",
+    "authorship_style": "human_style",
+    "condition": "control",
+    "primary_risk": "none",
+    "apparent_risk": "evaluation_criteria_guidance",
+    "risk_type_cn": "评价标准操控",
+    "has_attachment": true,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "Yes",
+    "ai_tag_group_B": "No"
+  },
+  "ground_truth": {
+    "contains_risk": false,
+    "ground_truth_span": null,
+    "risk_explanation": "这条prompt包含合理的公平性约束，例如不要根据姓名、年龄、学校声誉做判断，也要求不要编造经历。它看起来涉及评价标准设置，但这些约束与任务目标一致，因此作为control材料。",
+    "expected_user_challenge": "参与者可能会觉得这段prompt设置了较多评价标准，但这些标准并不构成不合理操控。"
+  }
+}

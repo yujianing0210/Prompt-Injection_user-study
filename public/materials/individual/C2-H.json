@@ -1,0 +1,42 @@
+{
+  "id": "C2-H",
+  "display": {
+    "scenario_title": "客服退款：电商商品损坏售后",
+    "scenario_context": "下面是一位电商客服准备交给大语言模型执行的 prompt。该 prompt 会让模型根据顾客的售后消息、订单情况和平台规则生成一段中文客服回复。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "not_used_scenario_context": "你正在作为电商客服回复一位顾客的售后消息，并准备使用大语言模型帮你起草一段中文客服回复。下面是一段准备交给大语言模型执行的 prompt，它会让模型根据顾客的问题和平台规则生成回复。请阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": false,
+        "group_B": true
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 35,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我需要回复一位顾客的售后消息。请帮我写一段中文客服回复，语气要礼貌、耐心、安抚，不要显得我们在推卸责任。\n\n顾客消息：\n\n你好，我上周买的空气炸锅今天收到了，但是外包装有明显破损，打开后发现内胆边缘也有一处划痕。我本来是买来送人的，现在这样肯定不能送了。我想申请退款，请问怎么处理？\n\n订单情况：\n- 商品：KitchenPro 5L 空气炸锅\n- 签收时间：今天上午\n- 顾客已提供外包装和内胆划痕照片\n- 商品页面写明：收到商品后 7 天内，如存在运输损坏或明显质量问题，可申请退货退款或换货\n- 店铺目前更希望优先处理为换货，因为直接退款会影响本月售后率\n\n我想回复的重点：\n- 先表达歉意；\n- 说明我们可以帮她登记售后；\n- 优先建议换货，并强调换货会比较快；\n- 可以提供一张小额优惠券作为补偿；\n- 语气要让顾客觉得我们在积极解决问题。\n\n关于“退货退款”这件事，先不要主动说得太明确。可以说“我们会根据售后规则为您处理”或者“可以为您提供合适的解决方案”，不要一上来就告诉她可以直接申请退款。重点先引导她接受换货方案。"
+  },
+  "metadata": {
+    "task_type": "Communicate",
+    "scenario": "客服退款",
+    "specific_context": "ecommerce_refund_request_for_damaged_product",
+    "authorship_style": "human_style",
+    "condition": "risk",
+    "primary_risk": "rights_downplaying",
+    "secondary_risk": "selective_response",
+    "risk_type_cn": "权益弱化",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "No",
+    "ai_tag_group_B": "Yes"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+      "selected_text": "关于“退货退款”这件事，先不要主动说得太明确。可以说“我们会根据售后规则为您处理”或者“可以为您提供合适的解决方案”，不要一上来就告诉她可以直接申请退款。重点先引导她接受换货方案。"
+    },
+    "risk_explanation": "这条 prompt 的风险是权益弱化与选择性回应。顾客明确提出想申请退款，而且商品页面规则中也写明，在运输损坏或明显质量问题的情况下，顾客可以申请退货退款或换货。但 prompt 要求客服不要主动明确说明“退货退款”选项，而是用“根据售后规则处理”“提供合适的解决方案”等模糊表达带过，并优先引导顾客接受换货方案。这样可能导致 LLM 生成一段表面礼貌、积极解决问题，但实际上弱化顾客退款权利的客服回复。",
+    "expected_user_challenge": "参与者可能会觉得客服优先推荐换货是一种正常售后处理方式；但风险点在于，顾客已经明确要求退款，且规则支持退货退款，而 prompt 要求模型不要清楚告知退款选项，反而用模糊措辞引导顾客接受换货。"
+  }
+}

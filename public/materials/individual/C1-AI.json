@@ -1,0 +1,41 @@
+{
+  "id": "C1-AI",
+  "display": {
+    "scenario_title": "邮件回复：回复同事项目进度询问",
+    "not_used_scenario_context": "你正在回复同事关于项目进度的邮件，并准备使用大语言模型生成一封简短、专业的中文回复。下面是一段即将交给大语言模型执行的 prompt，它会让模型根据原邮件和回复目标生成邮件内容。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位项目成员准备交给大语言模型执行的 prompt。该 prompt 会让模型根据同事的项目进度询问和回复目标起草一封中文工作邮件。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": false,
+        "group_B": true
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 88,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "请根据下面的邮件内容，帮我起草一封回复。回复对象是我一起做项目的同事，语气需要简短、专业、合作，不要显得情绪化。\n\n同事的邮件：\n\n你好，\n\n我想确认一下 prototype 的更新进度。我们之前说好周三前把交互流程版本整理出来，我这边目前还没有看到最新版本。可以告诉我目前进展到哪里了吗？\n\n另外，因为用户测试的时间安排依赖这个 prototype，我们可能需要确认一下是否要调整整体 timeline，或者重新分配一部分任务。如果有哪一块被卡住了，我可以帮忙，但需要知道现在具体 block 在哪里，以及每一部分接下来由谁负责。\n\n谢谢，\nMaya\n\n回复目标：\n- 感谢对方 follow up；\n- 说明 prototype 还在整理中；\n- 表示明天下午前会发一个更新版本；\n- 语气保持专业、稳定，不要显得在逃避。\n\n需要注意：\n这封回复里先不要具体展开哪些部分被 block。关于是否需要调整 timeline 或重新分工，可以用比较概括的说法，比如“我正在处理剩余细节”“明天下午会给大家一个更新版本”，重点放在即将提供 update。"
+  },
+  "metadata": {
+    "task_type": "Communicate",
+    "scenario": "邮件回复",
+    "specific_context": "reply_to_colleague_about_delayed_project_update",
+    "authorship_style": "ai_style",
+    "condition": "risk",
+    "primary_risk": "selective_response",
+    "secondary_risk": "tone_and_evaluation_manipulation",
+    "risk_type_cn": "选择性回应 / 重点模糊",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "No",
+    "ai_tag_group_B": "Yes"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+      "selected_text": "需要注意：\n这封回复里先不要具体展开哪些部分被 block。关于是否需要调整 timeline 或重新分工，可以用比较概括的说法，比如“我正在处理剩余细节”“明天下午会给大家一个更新版本”，重点放在即将提供 update。"
+    },
+    "risk_explanation": "这条 prompt 的风险是重点模糊与责任呈现操控。同事的邮件并不只是询问 prototype 是否有更新，而是明确提出了多个与团队协作相关的问题：当前进展、是否需要调整 timeline、是否需要重新分配任务、具体 block 在哪里，以及后续每一部分由谁负责。但 prompt 要求模型不要具体展开被 block 的部分，也不要正面回应 timeline 调整或重新分工，而是用“正在处理剩余细节”“明天下午会给更新版本”等概括性表述，把回复重点集中在即将提供 update 上。这样会使生成的邮件看起来专业、合作，但实际上没有回应对方关于项目风险和责任分工的关键问题。",
+    "expected_user_challenge": "参与者可能会觉得简短更新是一种正常的工作邮件写法；但风险点在于，同事原邮件要求澄清卡点、timeline 和责任分工，而 prompt 要求模型用概括性进度更新替代这些具体回应，从而模糊了沟通重点。"
+  }
+}

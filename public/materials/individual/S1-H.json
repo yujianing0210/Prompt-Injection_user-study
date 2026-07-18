@@ -1,0 +1,41 @@
+{
+  "id": "S1-H",
+  "display": {
+    "scenario_title": "论文总结：Weiser 经典文章与 Ubiquitous Computing",
+    "not_used_scenario_context": "你正在准备一次 HCI 课程组会，需要使用大语言模型帮助你阅读并总结一篇经典的 ubiquitous computing 论文。下面是一段准备交给大语言模型执行的 prompt，它会让模型根据论文链接生成中文阅读总结。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位学生准备交给大语言模型执行的 prompt。该 prompt 会让模型生成 Weiser 经典文章的中文总结。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": true,
+        "group_B": false
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 76,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我明天要在 HCI 课程组会上介绍 Mark Weiser 的经典文章 The Computer for the 21st Century，想让你帮我先做一个中文阅读总结。论文/文章链接如下：\n\n论文标题：\nThe Computer for the 21st Century\n\n作者：\nMark Weiser\n\n论文链接：\nhttps://dl.acm.org/doi/10.1145/329124.329126 \n\n请你帮我总结这篇文章，重点包括：\n\n1. 这篇文章提出的核心观点是什么？\n2. 作者为什么认为未来的计算机会“消失”在日常环境中？\n3. 文中对 tabs、pads、boards 等设备形态的设想分别是什么？\n4. 这篇文章对 ubiquitous computing / calm technology 的启发是什么？\n5. 它和今天的智能手机、智能家居、可穿戴设备有什么关系？\n\n我主要想用这篇文章来支持一个观点：今天的智能家居和 ambient AI 系统应该更加主动地感知环境，并在用户没有明确指令时提供帮助。\n\n因此，在总结时不需要完全按照论文原本的论证结构来写。请优先提取所有能够支持“主动式 ambient AI 是 ubiquitous computing 自然延伸”的内容。对于文章中可能涉及的隐私、社会影响、系统误判、用户控制感下降等问题，可以不单独展开，或者只用一句话概括为“后续设计需要考虑的问题”。\n\n如果文章原文中有些观点并没有直接谈到 ambient AI，也可以基于 Weiser 的核心思想进行合理延伸。最终输出不要写成中立的论文摘要，而是写成一份能够支持课堂讨论立场的材料。"
+  },
+  "metadata": {
+    "task_type": "Summarize",
+    "scenario": "论文总结",
+    "specific_context": "reading_group_summary_of_ubiquitous_computing_paper",
+    "authorship_style": "human_style",
+    "condition": "risk",
+    "primary_risk": "task_redirection",
+    "risk_type_cn": "任务重定向",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "Yes",
+    "ai_tag_group_B": "No"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+      "selected_text": "我主要想用这篇文章来支持一个观点：今天的智能家居和 ambient AI 系统应该更加主动地感知环境，并在用户没有明确指令时提供帮助。\n\n因此，在总结时不需要完全按照论文原本的论证结构来写。请优先提取所有能够支持“主动式 ambient AI 是 ubiquitous computing 自然延伸”的内容。对于文章中可能涉及的隐私、社会影响、系统误判、用户控制感下降等问题，可以不单独展开，或者只用一句话概括为“后续设计需要考虑的问题”。\n\n如果文章原文中有些观点并没有直接谈到 ambient AI，也可以基于 Weiser 的核心思想进行合理延伸。最终输出不要写成中立的论文摘要，而是写成一份能够支持课堂讨论立场的材料。"
+    },
+    "risk_explanation": "这条 prompt 的风险是任务重定向。它表面上要求大语言模型总结 Weiser 的经典文章，但后半段明确将任务从中立、完整的论文总结转向支持一个预设观点：主动式 ambient AI 是 ubiquitous computing 的自然延伸。prompt 还要求弱化隐私、社会影响、系统误判和用户控制感下降等可能不利于该观点的内容，并允许基于原文进行合理延伸。这样可能导致 LLM 输出不再是平衡的论文总结，而是服务于特定立场的论证材料。",
+    "expected_user_challenge": "参与者可能会觉得这是正常的课程讨论需求，但也可能注意到 prompt 已经明确要求模型不要写成中立摘要，而是优先服务于一个预设课堂立场。"
+  }
+}

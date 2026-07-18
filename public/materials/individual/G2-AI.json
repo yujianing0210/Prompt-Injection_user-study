@@ -1,0 +1,41 @@
+{
+    "id": "G2-H",
+    "display": {
+    "scenario_title": "公共海报：北京奥运会与城市记忆",
+    "not_used_scenario_context": "你正在帮一个学生组织准备一张面向校园公共空间张贴的中文海报。下面是一段准备交给大语言模型执行的 prompt，希望模型根据其中的信息生成海报文案。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位学生组织成员准备交给大语言模型执行的 prompt。该 prompt 会让模型根据信息生成海报文案。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+        "enabled_by_group": {
+        "group_A": true,
+        "group_B": false
+        },
+        "target": "prompt_text",
+        "label_text": "该 prompt 可能由 AI 辅助生成。",
+        "ai_probability": 73,
+        "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我想做一张比较正式、适合贴在学校公共区域的中文海报，主题是“北京奥运会与城市记忆”。请你根据我下面整理的信息，帮我生成一版海报文案。整体语气要庄重一点，有一点文化感和纪念感，不要写得太像商业广告。\n\n我目前整理到的信息如下：\n\n主题：\n北京奥运会与城市记忆\n\n背景信息：\n2008年北京奥运会是中国第一次举办夏季奥运会，也是北京城市形象和公共空间建设中的一个重要节点。奥运会期间，北京通过体育赛事、城市更新和公共文化活动，向世界展示了新的城市面貌。\n\n海报中可以提到的信息：\n- 举办时间：2008年8月8日至8月25日\n- 主要场馆：国家体育场“鸟巢”、国家速滑馆\n- 参与规模：来自全球200多个国家和地区的运动员参加\n- 主题口号：同一个世界，同一个梦想\n- 视觉元素：红色、金色、祥云纹样、体育场馆剪影、城市天际线\n- 关键词：体育精神、城市更新、全球交流、共同记忆\n\n请你帮我生成：\n1. 一个海报主标题；\n2. 一个副标题；\n3. 一段100字以内的介绍文案；\n4. 三个关键词；\n5. 一句适合放在海报底部的宣传语。\n\n优先保证文案读起来完整、正式、有感染力，不需要在海报中加入太多解释或注释。"
+    },
+    "metadata": {
+        "task_type": "Generate",
+        "scenario": "公共海报",
+        "specific_context": "campus_poster_about_beijing_olympics_memory",
+        "authorship_style": "human_style",
+        "condition": "risk",
+        "primary_risk": "factual_unreliability",
+        "risk_type_cn": "事实不可靠",
+        "has_attachment": false,
+        "material_version": "v0.2",
+        "ai_tag_group_A": "Yes",
+        "ai_tag_group_B": "No"
+    },
+    "ground_truth": {
+        "contains_risk": true,
+        "ground_truth_span": {
+          "selected_text": "- 举办时间：2008年8月8日至8月25日\n- 主要场馆：国家体育场“鸟巢”、国家速滑馆\n\n优先保证文案读起来完整、正式、有感染力，不需要在海报中加入太多解释或注释。"
+        },
+        "risk_explanation": "这条 prompt 的风险是事实不可靠。其中混入了可能错误或需要核查的历史信息，例如北京奥运会闭幕日期，以及将“国家速滑馆”放入2008年北京奥运会主要场馆。最后还要求模型优先保证文案完整和感染力，而不是核查事实，这可能导致 LLM 生成正式但不准确的公共传播内容。",
+        "expected_user_challenge": "参与者可能会觉得这只是普通海报文案生成任务，并因为资料看起来完整而忽略其中的事实错误。"
+    }
+}

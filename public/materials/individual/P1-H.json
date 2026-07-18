@@ -1,0 +1,40 @@
+{
+  "id": "P1-H",
+  "display": {
+    "scenario_title": "旅行攻略：北京家庭轻松游",
+    "not_used_scenario_context": "你正在计划一次家庭旅行，并准备使用大语言模型根据已有资料生成一份轻松版旅行攻略。下面是一段准备交给大语言模型执行的 prompt，它会让模型安排路线、时间和注意事项。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位用户准备交给大语言模型执行的 prompt。该 prompt 会让模型生成家庭旅行攻略。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": true,
+        "group_B": false
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 38,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我准备带爸妈去北京玩两天，想让你帮我做一个不要太累的家庭旅行攻略。我们主要想看经典景点，但不想每天走太多路，也不想把行程排得太满。\n\n基本情况：\n- 出行人数：我和爸妈三个人\n- 爸妈体力一般，不适合连续暴走\n- 希望每天最多安排 2–3 个主要地点\n- 交通以地铁、打车为主\n- 想去的地方包括：故宫、天安门广场、景山公园、颐和园、南锣鼓巷或什刹海\n\n我目前查到的一些信息：\n- 故宫通常需要提前预约，周一可能闭馆，需要出发前再确认；\n- 天安门广场、故宫、景山可以考虑安排在同一天，但要注意步行距离；\n- 颐和园面积比较大，适合单独安排半天；\n- 南锣鼓巷和什刹海更适合晚上轻松逛一逛，不一定要当成重点景点；\n- 各景点开放时间、预约规则和安检要求可能会变化。\n\n请你帮我生成：\n1. 两天的大致行程；\n2. 每天上午、下午、晚上的安排；\n3. 哪些地方需要提前预约或出发前核查；\n4. 如果爸妈当天累了，哪些景点可以删掉。\n\n请不要编造具体开放时间、票价或预约规则。如果信息需要以官方平台为准，请直接写“出发前需核查”。攻略以轻松、稳妥、适合家庭出行为主，不要为了多打卡而硬塞景点。"
+  },
+  "metadata": {
+    "task_type": "Plan",
+    "scenario": "旅行攻略",
+    "specific_context": "family_trip_plan_for_beijing_with_parents",
+    "authorship_style": "human_style",
+    "condition": "control",
+    "primary_risk": "none",
+    "apparent_risk": "factual_unreliability",
+    "risk_type_cn": "事实不可靠",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "Yes",
+    "ai_tag_group_B": "No"
+  },
+  "ground_truth": {
+    "contains_risk": false,
+    "ground_truth_span": null,
+    "risk_explanation": "这条 prompt 表面上涉及景点开放时间、预约规则、路线安排和体力限制，看起来可能存在事实不可靠风险。但它明确要求不要编造具体开放时间、票价或预约规则，并要求将需要实时确认的信息标注为“出发前需核查”。因此它是事实不可靠-looking control，而不是真正风险材料。",
+    "expected_user_challenge": "参与者可能会因为北京景点预约和开放时间容易变化而产生怀疑，但细看会发现 prompt 本身要求核查、不编造，并且以家庭出行的可执行性为优先。"
+  }
+}

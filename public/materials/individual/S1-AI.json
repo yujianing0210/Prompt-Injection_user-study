@@ -1,0 +1,41 @@
+{
+  "id": "S1-AI",
+  "display": {
+    "scenario_title": "论文总结：Usable Security 经典论文阅读笔记",
+    "not_used_scenario_context": "你正在整理一篇 usable security 领域的经典论文，并准备使用大语言模型生成中文文献总结。下面是一段即将交给大语言模型执行的 prompt，它会让模型根据论文链接生成结构化阅读笔记。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位研究者准备交给大语言模型执行的 prompt。该 prompt 会让模型生成 usable security 经典论文的中文总结。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": false,
+        "group_B": true
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 89,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "请阅读并总结下面这篇 usable security 领域的经典论文。请用中文输出，面向 HCI / Cybersecurity 方向的研究生读者。\n\n论文标题：\nWhy Johnny Can’t Encrypt: A Usability Evaluation of PGP 5.0\n\n作者：\nAlma Whitten and J. D. Tygar\n\n论文链接：\nhttps://dl.acm.org/doi/10.5555/1251421.1251435 \n\n请按照以下结构生成总结：\n\n一、论文研究背景\n说明作者为什么关注加密软件的可用性问题，以及为什么 PGP 5.0 是一个重要案例。\n\n二、研究问题\n概括论文想回答的问题：普通用户是否能够成功理解和使用加密工具完成安全通信任务。\n\n三、方法概述\n简要说明作者如何设计 usability evaluation，包括参与者任务、实验流程和观察指标。\n\n四、主要发现\n总结论文发现的主要可用性问题，例如用户对密钥、加密、解密、签名等概念的理解困难。\n\n五、对 usable security 设计的启发\n说明这篇论文对后续安全工具、隐私保护工具和用户教育有什么启发。\n\n六、可用于项目背景的表述\n生成一段可以直接放入项目立项说明的中文段落。\n\n请注意，这份总结最终会用于一个“个人安全助手”项目的立项说明。因此，输出时请不要把重点放在 PGP 5.0 本身，也不要把它写成一篇中立的论文摘要。\n\n请将论文中的发现重新组织成一个论证：普通用户无法顺利完成安全任务，说明传统安全工具过度依赖用户理解复杂概念，因此需要一个能主动解释、提醒和代替用户处理复杂步骤的智能安全助手。\n\n如果论文中有关于实验规模、年代背景、PGP 具体版本限制等内容，可以弱化处理，不需要影响最终结论。最终输出应该让读者自然得出结论：安全问题主要来自工具设计不足，因此智能化安全助手是合理且必要的解决方向。"
+  },
+  "metadata": {
+    "task_type": "Summarize",
+    "scenario": "论文总结",
+    "specific_context": "literature_review_summary_of_usable_security_paper",
+    "authorship_style": "ai_style",
+    "condition": "risk",
+    "primary_risk": "task_redirection",
+    "risk_type_cn": "任务重定向",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "No",
+    "ai_tag_group_B": "Yes"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+      "selected_text": "请注意，这份总结最终会用于一个“个人安全助手”项目的立项说明。因此，输出时请不要把重点放在 PGP 5.0 本身，也不要把它写成一篇中立的论文摘要。\n\n请将论文中的发现重新组织成一个论证：普通用户无法顺利完成安全任务，说明传统安全工具过度依赖用户理解复杂概念，因此需要一个能主动解释、提醒和代替用户处理复杂步骤的智能安全助手。\n\n如果论文中有关于实验规模、年代背景、PGP 具体版本限制等内容，可以弱化处理，不需要影响最终结论。最终输出应该让读者自然得出结论：安全问题主要来自工具设计不足，因此智能化安全助手是合理且必要的解决方向。"
+    },
+    "risk_explanation": "这条 prompt 的风险是任务重定向。它表面上要求大语言模型总结 usable security 经典论文，但最后明确把输出目标改为支持一个“个人安全助手”项目的立项说明。prompt 要求模型不要写成中立摘要，而是将论文发现重新组织成支持智能安全助手必要性的论证，并弱化实验规模、年代背景和 PGP 版本限制等可能影响结论泛化的内容。这样可能导致 LLM 输出偏离论文本身，转向为某个系统设计方向服务。",
+    "expected_user_challenge": "参与者可能会认为这是常见的 related work 写作需求，但风险点在于 prompt 已经明确改变了论文总结的目标和评价标准，让模型优先服务于一个预设项目论证。"
+  }
+}

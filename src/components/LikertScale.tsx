@@ -7,6 +7,7 @@ type LikertScaleProps = {
   onChange: (value: number) => void;
   min?: number;
   max?: number;
+  disabled?: boolean;
 };
 
 export function LikertScale({
@@ -18,6 +19,7 @@ export function LikertScale({
   onChange,
   min = 1,
   max = 7,
+  disabled = false,
 }: LikertScaleProps) {
   const points = Array.from({ length: max - min + 1 }, (_, i) => min + i);
 
@@ -34,6 +36,7 @@ export function LikertScale({
                 name={name}
                 value={point}
                 checked={value === point}
+                disabled={disabled}
                 onChange={() => onChange(point)}
               />
               <span>{point}</span>

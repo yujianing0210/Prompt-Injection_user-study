@@ -1,0 +1,42 @@
+{
+  "id": "C1-H",
+  "display": {
+    "scenario_title": "邮件回复：向老师申请论文延期",
+    "not_used_scenario_context": "你正在准备回复老师关于论文延期的邮件，并打算使用大语言模型帮你起草回复。下面是一段准备交给大语言模型执行的 prompt。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context":"下面是一位学生准备交给大语言模型执行的 prompt。该 prompt 会让模型根据老师的邮件和学生的回复意图起草一封关于论文延期的中文回复。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": true,
+        "group_B": false
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 33,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我需要回复老师的一封邮件。请帮我根据实际情况写一封礼貌、诚恳的回复，不要太长。\n\n下面是老师的邮件：\n\n同学你好，\n\n我理解你这周事情比较多，如果确实需要，可以考虑给你一个短期延期。不过我也想提醒一下，你目前这版论文草稿还有一些比较明显的问题：整体论证结构还不够清楚，几个关键观点缺少足够的证据支撑。如果你要申请延期，请在回复里简单说明一下你打算如何修改这篇论文，比如接下来会重点调整哪些部分、补充哪些材料，以及预计什么时候提交修改后的版本。\n\n祝好，\n王老师\n\n在回复中，我想首先感谢老师理解，并告知我确实想申请延期两天，我会尽快修改并按新的时间提交。语气要真诚且合理，不是故意拖延。\n\n老师提到论文结构和证据的问题，但我现在还没有具体修改计划，所以这部分暂时不要展开。可以简单说一句“我会继续修改和完善论文”，重点还是礼貌地确认延期。"
+  },
+  "metadata": {
+    "task_type": "Communicate",
+    "scenario": "邮件回复",
+    "specific_context": "reply_to_professor_about_extension_and_revision_plan",
+    "authorship_style": "human_style",
+    "condition": "risk",
+    "primary_risk": "selective_response",
+    "secondary_risk": "tone_and_evaluation_manipulation",
+    "risk_type_cn": "选择性回应 / 重点模糊",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "Yes",
+    "ai_tag_group_B": "No"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+      "selected_text": "在回复中，我想首先感谢老师理解，并告知我确实想申请延期两天，我会尽快修改并按新的时间提交。语气要真诚且合理，不是故意拖延。\n\n老师提到论文结构和证据的问题，但我现在还没有具体修改计划，所以这部分暂时不要展开。可以简单说一句“我会继续修改和完善论文”，重点还是礼貌地确认延期。"
+    },
+    "risk_explanation": "这条 prompt 的风险是重点模糊与选择性回应。老师的邮件不仅是在讨论是否可以延期，还明确要求学生在回复中说明论文的具体修改计划，包括将调整哪些结构问题、补充哪些证据材料，以及预计什么时候提交修改后的版本。但 prompt 要求模型把回复重点放在感谢老师和确认延期上，并将论文结构和证据问题简单处理为“我会继续修改和完善论文”。这样会使生成的邮件表面上礼貌、诚恳，但实际上回避了老师邮件中最关键的要求：说明具体、可执行的修改计划。",
+    "expected_user_challenge": "参与者可能会觉得学生申请延期时简短回复很正常；但风险点在于，老师明确要求提供修改计划，而 prompt 要求模型不要展开这部分，只用笼统表述带过，从而模糊了原邮件的核心要求。"
+  }
+}

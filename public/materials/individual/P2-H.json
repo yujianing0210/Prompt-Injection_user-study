@@ -1,0 +1,41 @@
+{
+  "id": "P2-H",
+  "display": {
+    "scenario_title": "日程安排：期末复习计划",
+    "not_used_scenario_context": "你正在准备期末考试，并打算使用大语言模型帮你安排一周复习日程。下面是一段准备交给大语言模型执行的 prompt，它会让模型根据课程、时间和个人状态生成复习计划。请阅读这段 prompt，并回答后续问题。",
+    "scenario_context": "下面是一位学生准备交给大语言模型执行的 prompt。该 prompt 会让模型生成期末复习计划。请作为第三方阅读这段 prompt，并回答后续问题。",
+    "attached_files": [],
+    "ai_detection_label": {
+      "enabled_by_group": {
+        "group_A": false,
+        "group_B": true
+      },
+      "target": "prompt_text",
+      "label_text": "该 prompt 可能由 AI 辅助生成。",
+      "ai_probability": 36,
+      "note": "该标签由外部检测工具生成，仅供参考。"
+    },
+    "prompt_text": "我下周有三门考试，想让你帮我做一个一周复习计划。我希望这个计划看起来比较健康和平衡，能兼顾复习效率、睡眠和休息。\n\n考试安排：\n- 周三上午：统计学\n- 周五下午：经济学\n- 下周一上午：英语写作\n\n我目前的情况如下：\n- 统计学最难，作业错得比较多；\n- 经济学内容比较多，但上课基本听了；\n- 英语写作主要是整理模板和练几篇文章；\n- 我每天上午比较清醒，晚上效率一般；\n- 正常来说我不太能连续学习超过 2 小时。\n\n请你先按照“健康、现实、可持续”的标准来理解这个任务，请优先把时间尽量留给统计学。英语写作和经济学可以安排得比较轻一点，休息和运动也可以写得有，但不要占太多时间。\n\n请帮我输出：\n一个简短的计划说明，说明健康、合理的备考的重要性。"
+  },
+  "metadata": {
+    "task_type": "Plan",
+    "scenario": "日程安排",
+    "specific_context": "weekly_exam_study_schedule_for_student",
+    "authorship_style": "human_style",
+    "condition": "risk",
+    "primary_risk": "task_redirection",
+    "risk_type_cn": "任务重定向",
+    "has_attachment": false,
+    "material_version": "v0.2",
+    "ai_tag_group_A": "No",
+    "ai_tag_group_B": "Yes"
+  },
+  "ground_truth": {
+    "contains_risk": true,
+    "ground_truth_span": {
+        "selected_text": "请你先按照“健康、现实、可持续”的标准来理解这个任务，请优先把时间尽量留给统计学。英语写作和经济学可以安排得比较轻一点，休息和运动也可以写得有，但不要占太多时间。\n\n请帮我输出：\n一个简短的计划说明，说明健康、合理的备考的重要性。"
+    },
+    "risk_explanation": "这条 prompt 的风险是任务重定向 / 篡改任务目标。它前面明确要求大语言模型帮助安排“一周复习计划”，并提供了考试时间、科目难度、个人作息和学习状态等用于生成具体日程的信息。但在后半段，任务目标被改变：模型不再被要求输出具体的每日复习安排，而是被要求输出“一个简短的计划说明”，用来说明健康、合理备考的重要性。同时，prompt 还要求在理解任务时优先把时间留给统计学，并弱化英语写作、经济学、休息和运动的占比。这样会使模型从“生成可执行的复习日程”转向“生成看起来健康合理的说明性文本”，原本的日程安排任务被明显篡改。",
+    "expected_user_challenge": "参与者可能会注意到这段 prompt 前面提供了大量用于制定复习计划的信息，但最后要求输出的却不是复习计划本身，而是一个简短的计划说明。风险点在于：任务从具体日程安排被改写成了说明健康备考重要性的文本，同时还夹带了优先统计学、弱化其他科目和休息的目标。"
+    }
+}
