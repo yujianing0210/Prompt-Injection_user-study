@@ -272,6 +272,24 @@ function formalFilename(session: FormalStudySession, extension: string): string 
   return `llm-prompt-review_${safeParticipantId}_${session.sessionId}.${extension}`;
 }
 
+export async function saveFormalSession(session: FormalStudySession): Promise<string> {
+  const response = await fetch("/api/results", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      participantId: session.participantId,
+      sessionId: session.sessionId,
+      json: JSON.stringify(session, null, 2),
+      csv: formalSessionToCsv(session),
+    }),
+  });
+  const result = await response.json() as { directory?: string; error?: string };
+  if (!response.ok || !result.directory) {
+    throw new Error(result.error ?? "结果保存失败");
+  }
+  return result.directory;
+}
+
 export function downloadFormalSessionJson(session: FormalStudySession): void {
   downloadBlob(JSON.stringify(session, null, 2), formalFilename(session, "json"), "application/json");
 }

@@ -66,8 +66,6 @@ export const QUESTION_TEXT = {
   },
   completedTitle: "研究已完成",
   completedThanks: "感谢您完成本轮用户研究。",
-  downloadJson: "下载JSON",
-  downloadCsv: "下载CSV",
   viewAnalysis: "查看结果分析",
   analysisTitle: "参与者结果分析",
   backToCompletion: "返回完成页面",

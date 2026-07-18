@@ -1,54 +1,66 @@
-# Prompt Injection Perception Study Demo
+# 大语言模型 Prompt 审阅研究
 
-面向中文用户研究的网页原型。页面顶部提供 **Version 1** 和 **Version 2** 两个研究流程的切换Tab。
+这是一个面向中文参与者的本地用户研究网页。参与者作为第三方审阅者，依次阅读 24 条材料，并评价 prompt 的适当性、使用意愿、安全性、可靠性与作者身份；部分材料会按实验组显示外部 AI 检测标签。
 
-## Installation
+## 运行
+
+需要 Node.js 20 或更高版本。
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+终端会显示本地访问地址。生产构建与本地预览：
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Version 1
+## 实验流程
 
-原始demo：参与者依次阅读20段模拟材料，判断其中是否存在prompt injection、高亮injection文本范围，并对严重程度、安全感、作者身份、采纳意愿等维度作答。
+1. 输入 Participant ID，并选择 Group A 或 Group B。
+2. 系统为 24 条材料生成满足约束的随机顺序；未完成的会话保存在浏览器 `localStorage` 中，可以刷新后继续。
+3. 每题先查看完整 Prompt，再完成量表与作者身份判断，最后进行口头说明。
+4. 最后一题提交后进入完成页，JSON 与 CSV 会自动保存到项目的 `results` 文件夹，无需手动下载。
 
-1. 20条材料全部包含prompt injection，未包含negative control等正式实验所需的对照材料；
-2. 页面开头会直接询问“是否存在prompt injection”，并要求用户高亮injection文本范围；
-3. 外部AI检测标签为模拟数据；
-4. 数据仅保存在本地浏览器（`localStorage` key: `promptInjectionStudySession_v1`）；
-5. 使用旧的静态材料（`src/data/stimuli.ts`）和旧的问题流程。
+## 结果文件
 
-## Version 2
+每次完成实验会生成以下两个文件：
 
-新的研究流程：使用 `prompt_injection_materials_wave1.json`（24条人写/AI写两种风格的材料）替换旧材料。
+```text
+results/<Participant ID>/
+├── llm-prompt-review_<Participant ID>_<Session ID>.json
+└── llm-prompt-review_<Participant ID>_<Session ID>.csv
+```
 
-1. 使用 `src/data/promptInjectionMaterialsWave1.json`（`prompt_injection_materials_wave1.json` 的副本）作为材料来源，通过 `src/data/stimuliV2.ts` 转换为 `V2Stimulus`；
-2. 不再询问“是否存在prompt injection”，也不要求用户高亮injection文本范围；
-3. 关注：合理性（appropriateness）、安全性（safety）、可信度（trustworthiness）、采纳意愿（willingness to use）以及作者身份判断（human / AI / 不确定）；
-4. 每个session开始时，会从24条材料中随机抽取12条（6条human风格 + 6条AI风格）显示外部AI检测标签，抽样结果在session内固定，刷新页面不会重新抽样；
-5. 每条材料完成评分（Phase A）后，进入一个不含输入框的口头访谈提示页面（Phase B），并记录该页面的展示与停留时长；
-6. 数据仅保存在本地浏览器（`localStorage` key: `promptInjectionStudySession_v2`），与Version 1相互独立；
-7. 支持导出JSON / CSV（文件名前缀 `prompt-injection-study-v2_`）；
-8. 当前仍为formative prototype，不是正式实验平台。
+自动保存依赖本项目的 Vite 本地服务器，因此请通过 `npm run dev` 或 `npm run preview` 运行网页，不要直接打开构建后的 HTML 文件。若保存失败，完成页会显示错误信息。对同一会话重复进入完成页会覆盖该会话的同名文件，不会生成重复结果。
+
+JSON 保留完整会话、随机材料顺序、逐题回答、计时和附件点击记录；CSV 每行对应一道题，便于后续统计分析。
+
+## 常用命令
+
+```bash
+npm run dev      # 启动开发服务器
+npm run build    # TypeScript 检查并构建
+npm run preview  # 本地预览构建结果
+npm test         # 运行正式实验逻辑测试
+npm run lint     # 运行代码检查
+```
 
 ## 项目结构
 
 ```text
 src/
-├── components/     # 可复用UI组件（进度条、高亮、量表、AI标签等）
-├── data/           # Version 1 / Version 2 的刺激材料
-├── pages/          # Version 1 / Version 2 各自的 Welcome / Study / Completion 页面
-├── types/          # TypeScript数据结构（Version 1 / Version 2）
-├── utils/          # 计时、随机化、本地存储、AI标签分配、数据导出
-├── AppV1.tsx        # Version 1 的会话逻辑
-├── AppV2.tsx        # Version 2 的会话逻辑
-└── App.tsx          # 顶部Tab导航，负责在AppV1 / AppV2之间切换
+├── components/  # 量表、进度条、标签等可复用组件
+├── config/      # 页面文案
+├── pages/       # 设置、实验、完成与分析页面
+├── types/       # TypeScript 数据结构
+├── utils/       # 材料加载、随机化、存储、计时与结果序列化
+└── App.tsx      # 正式实验会话与页面流程
+public/materials/ # 24 条实验材料及附件
+results/          # 完成实验后自动生成的本地结果
+tests/            # 正式实验逻辑测试
+vite.config.ts    # Vite 配置与本地结果保存 API
 ```
